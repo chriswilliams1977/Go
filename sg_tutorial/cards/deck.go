@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"io/ioutil"
+	"math/rand"
 	"os"
+	"strings"
+	"time"
 )
 
 //create a new type of 'deck'
@@ -41,21 +43,33 @@ func (d deck) toString() string {
 
 }
 
-func (d deck) saveToFile (filename string)  error {
+func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 
 }
 
-func newDeckFromFile(filename string) deck  {
+func newDeckFromFile(filename string) deck {
 	byteSlice, err := ioutil.ReadFile("my_cards")
 	if err != nil {
 		//#option 1 - Log error and return call to newDeck
 		//#option 2 - Log error and quit program
-		fmt.Println("Error: ",err)
+		fmt.Println("Error: ", err)
 		os.Exit(1)
 	}
 
-	s := strings.Split(string(byteSlice),",") //Ace of Spades,Two of Spades,Three of Spades
+	s := strings.Split(string(byteSlice), ",") //Ace of Spades,Two of Spades,Three of Spades
 
 	return deck(s)
+}
+
+func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		//gets length of slice and generate random number based on this
+		newPosition := r.Intn(len(d) - 1)
+
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }

@@ -6,8 +6,10 @@ func main() {
 	//using deck type
 	//cards := newDeck()
 	//cards.saveToFile("my_cards")
+	//cards := newDeckFromFile("my_cards")
 
-	cards := newDeckFromFile("my_cards")
+	cards := newDeck()
+	cards.shuffle()
 	cards.print()
 
 }
