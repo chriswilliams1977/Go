@@ -34,8 +34,10 @@ func main() {
 		},
 	}
 
-	jim.print()
-	jim.updateName("chris");
+	//& is an operator
+	//States give me access to the memory address jim is at (jimPointer is pointing at the memory address of jim
+	jimPointer := &jim
+	jimPointer.updateName("chris");
 	jim.print()
 }
 
@@ -44,6 +46,10 @@ func (p person) print()  {
 	fmt.Printf("%+v",p)
 }
 
-func (p person) updateName(newFirstName string)  {
-	p.firstName = newFirstName
+//* in front of type ir different to * in front of a pointer
+//whenever you have * then type you are saying you are looking for a pointer with type person
+//function can only be called from a receiver of type of pointer to a person
+func (pointerToPerson *person) updateName(newFirstName string)  {
+	//* operator here get value at that memory address, get me value of pointerToPerson
+	(*pointerToPerson).firstName = newFirstName
 }
