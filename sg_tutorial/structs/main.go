@@ -36,8 +36,8 @@ func main() {
 
 	//& is an operator
 	//States give me access to the memory address jim is at (jimPointer is pointing at the memory address of jim
-	jimPointer := &jim
-	jimPointer.updateName("chris");
+	//jimPointer := &jim
+	jim.updateName("chris");
 	jim.print()
 }
 
